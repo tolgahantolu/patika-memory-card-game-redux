@@ -10,16 +10,15 @@ const Playground = () => {
   const finalizedFrameworks = useSelector(
     (state) => state.card.finalizedFrameworks
   );
-  console.log(finalizedFrameworks);
 
   useEffect(() => {
     dispatch(startGame(frameworks));
   }, []);
 
   return (
-    <div className="playground bg-blue-800 grid grid-cols-6 grid-rows-5 gap-3">
-      {finalizedFrameworks.map((card, i) => (
-        <Card key={i} framework={card} />
+    <div className="playground grid grid-cols-6 grid-rows-5 gap-3">
+      {finalizedFrameworks.map((card, index) => (
+        <Card key={index} {...card} index={index} />
       ))}
     </div>
   );

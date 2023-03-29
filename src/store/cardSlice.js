@@ -6,7 +6,7 @@ const initialState = {
   duplicatedFrameworks: [],
   randomizedFrameworks: [],
   finalizedFrameworks: [],
-  //openedFrameworks: [],
+  openedFrameworks: [],
 };
 
 const cardSlice = createSlice({
@@ -26,7 +26,6 @@ const cardSlice = createSlice({
           randomIndex = Math.floor(Math.random() * currentIndex);
           currentIndex--;
 
-          // And swap it with the current element.
           [arr[currentIndex], arr[randomIndex]] = [
             arr[randomIndex],
             arr[currentIndex],
@@ -48,8 +47,56 @@ const cardSlice = createSlice({
       });
       state.finalizedFrameworks = finalizedFrameworks;
     },
+    checkCards: (state, { payload, type }) => {
+      let finalizedFrameworks = state.finalizedFrameworks;
+      if (
+        state.openedFrameworks[0].item === state.openedFrameworks[1].item &&
+        state.openedFrameworks[0].index !== state.openedFrameworks[1].index
+      ) {
+        finalizedFrameworks[state.openedFrameworks[0].index].complete = true;
+        finalizedFrameworks[state.openedFrameworks[1].index].complete = true;
+      } else {
+        finalizedFrameworks[state.openedFrameworks[0].index].close = true;
+        finalizedFrameworks[state.openedFrameworks[1].index].close = true;
+      }
+
+      state.finalizedFrameworks = finalizedFrameworks;
+      state.openedFrameworks = [];
+    },
+    clickEvent: {
+      reducer: (state, { payload, type }) => {
+        state.finalizedFrameworks[payload.index].close = payload.newClose;
+      },
+      prepare: (index, newClose) => {
+        return {
+          payload: {
+            index,
+            newClose,
+          },
+        };
+      },
+    },
+    addItemToOpenedFrameworks: {
+      reducer: (state, { payload, type }) => {
+        let newOpenedFrameworks = state.openedFrameworks;
+        if (newOpenedFrameworks[0]?.index !== payload.index) {
+          newOpenedFrameworks.push(payload.newFrameworks);
+        } else {
+          console.log("This item already exist!");
+        }
+      },
+      prepare: (index, newFrameworks) => {
+        return {
+          payload: {
+            index,
+            newFrameworks,
+          },
+        };
+      },
+    },
   },
 });
 
-export const { startGame } = cardSlice.actions;
+export const { startGame, checkCards, clickEvent, addItemToOpenedFrameworks } =
+  cardSlice.actions;
 export default cardSlice.reducer;
