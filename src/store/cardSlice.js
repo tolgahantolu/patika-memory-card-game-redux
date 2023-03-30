@@ -47,6 +47,7 @@ const cardSlice = createSlice({
         });
       });
       state.finalizedFrameworks = finalizedFrameworks;
+      state.score = 100;
     },
     checkCards: (state, { payload, type }) => {
       let finalizedFrameworks = state.finalizedFrameworks;
