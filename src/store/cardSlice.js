@@ -7,6 +7,7 @@ const initialState = {
   randomizedFrameworks: [],
   finalizedFrameworks: [],
   openedFrameworks: [],
+  score: 100,
 };
 
 const cardSlice = createSlice({
@@ -55,9 +56,11 @@ const cardSlice = createSlice({
       ) {
         finalizedFrameworks[state.openedFrameworks[0]?.index].complete = true;
         finalizedFrameworks[state.openedFrameworks[1]?.index].complete = true;
+        state.score += 50;
       } else {
         finalizedFrameworks[state.openedFrameworks[0]?.index].close = true;
         finalizedFrameworks[state.openedFrameworks[1]?.index].close = true;
+        state.score -= 10;
       }
 
       state.finalizedFrameworks = finalizedFrameworks;
