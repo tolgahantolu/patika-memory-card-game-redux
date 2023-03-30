@@ -9,16 +9,17 @@ import {
 const Card = ({ item, close, complete, fail, index }) => {
   const dispatch = useDispatch();
   const openedFrameworks = useSelector((state) => state.card.openedFrameworks);
-  console.log(openedFrameworks);
+
+  if (openedFrameworks.length == 2) {
+    console.log("length2");
+    setTimeout(() => {
+      dispatch(checkCards());
+    }, 750);
+  }
 
   //!handleClick
   const handleClick = (item, close, complete, fail, index) => {
-    if (openedFrameworks.length == 2) {
-      console.log("length2");
-      setTimeout(() => {
-        dispatch(checkCards());
-      }, 750);
-    } else {
+    if (openedFrameworks.length != 2) {
       let newClose = close;
       newClose = false;
       //prettier-ignore

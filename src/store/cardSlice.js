@@ -50,14 +50,14 @@ const cardSlice = createSlice({
     checkCards: (state, { payload, type }) => {
       let finalizedFrameworks = state.finalizedFrameworks;
       if (
-        state.openedFrameworks[0].item === state.openedFrameworks[1].item &&
-        state.openedFrameworks[0].index !== state.openedFrameworks[1].index
+        state.openedFrameworks[0]?.item === state.openedFrameworks[1]?.item &&
+        state.openedFrameworks[0]?.index !== state.openedFrameworks[1]?.index
       ) {
-        finalizedFrameworks[state.openedFrameworks[0].index].complete = true;
-        finalizedFrameworks[state.openedFrameworks[1].index].complete = true;
+        finalizedFrameworks[state.openedFrameworks[0]?.index].complete = true;
+        finalizedFrameworks[state.openedFrameworks[1]?.index].complete = true;
       } else {
-        finalizedFrameworks[state.openedFrameworks[0].index].close = true;
-        finalizedFrameworks[state.openedFrameworks[1].index].close = true;
+        finalizedFrameworks[state.openedFrameworks[0]?.index].close = true;
+        finalizedFrameworks[state.openedFrameworks[1]?.index].close = true;
       }
 
       state.finalizedFrameworks = finalizedFrameworks;

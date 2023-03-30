@@ -10,6 +10,7 @@ const Playground = () => {
   const finalizedFrameworks = useSelector(
     (state) => state.card.finalizedFrameworks
   );
+  console.log(finalizedFrameworks);
 
   useEffect(() => {
     dispatch(startGame(frameworks));
